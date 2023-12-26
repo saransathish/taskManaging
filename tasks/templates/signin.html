@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="img">
+        <img src="{% static 'img/pc.svg' %}" />
+      </div>
+      <div class="login-container">
+        <form action="signup/" method="post">
+            {% csrf_token %}
+          <img class="avator" src="{% static 'img/avator.svg' %}" />
+          <h2>Join us</h2>
+          <div class="input-div" one>
+            <div class="i">
+              <i class="fas fa-"></i>
+            </div>
+            <div>
+              <h5>Username</h5>
+              <input class="input" type="text" name="username"/>
+            </div>
+          </div>
+          <div class="input-div" one>
+            <div class="i">
+              <i class="fas fa-"></i>
+            </div>
+            <div>
+              <h5>Full name</h5>
+              <input class="input" type="text" name="fullname"/>
+            </div>
+          </div>
+          <div class="input-div" one>
+            <div class="i">
+              <i class="fas fa-"></i>
+            </div>
+            <div>
+              <h5>Email</h5>
+              <input class="input" type="text" name="email"/>
+            </div>
+          </div>
+          <div class="input-div" two>
+            <div class="i">
+              <i class="fas fa-"></i>
+            </div>
+            <div>
+              <h5>password</h5>
+              <input class="input" type="password" name="password"/>
+            </div>
+            
+          </div>
+         
+          <a href="back/">Already Have an account</a>
+          <input type="submit" class="btn" value="SignUp" />
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

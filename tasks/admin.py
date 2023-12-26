@@ -3,3 +3,6 @@ from tasks.models import *
 # Register your models here.
 
 admin.site.register(users)
+admin.site.register(log)
+admin.site.register(toDoLists)
+

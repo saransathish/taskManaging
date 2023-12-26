@@ -119,25 +119,21 @@
     <div id="myModal" class="modal-new">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form class="todoform">
+            <form class="todoform" action="createtodo" method="post">
+                {% csrf_token %}
                 <div class="input-group mb-3">
                     <input type="text" placeholder="Add a new Task .." class="todo-input form-control" id="textInput"
-                        required />
-                        <select id="categorySelect" class="form-select" >
-                            <option value="work">Work</option>
+                        name="job" required/>
+                        <select id="categorySelect" class="form-select" name="type">
+                            <option value="work">studies</option>
                             <option value="personal">Personal</option>
-                            <option value="shopping">Shopping</option>
-                            <option value="shopping">Household</option>
+                            <option value="shopping">hobbies</option>
+                            <option value="shopping">health</option>
                             
                         </select>
-                        
-                        
-                        
-                    <div class="abc">
-                        <button id="todo-button" class="todo-button" type="submit">
-                            <i class="fas fa-plus-square"></i>
-                        </button>
-                    </div>
+                    <input class="todo-button" id="todo-button" type="submit" value="Submit">    
+                    <input id="todo-button" class="todo-button" type="submit" value="submit">
+                    
                 </div>
             </form>
         </div>

@@ -13,8 +13,14 @@ def login(request):
         if val:
             data = users.objects.get(username = uname)
             if data.password == password:
+                logs = log.objects.get(id = 1)
+                logs.username = uname
+                logs.active = True 
+                logs.save()
+
+                
                 load = loader.get_template('todo.html')
-                return HttpResponse(load.render({},request))
+                return HttpResponse(load.render())
             else:
                 return redirect('/')
         else:
@@ -35,4 +41,5 @@ def createuser(request):
         return redirect('/')  
     else:
         return redirect('signup')
+
 

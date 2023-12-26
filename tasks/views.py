@@ -7,24 +7,28 @@ def index(request):
     load = loader.get_template('index.html')
     return HttpResponse(load.render({},request))
 def login(request):
-        uname = request.POST['uname']
-        password = request.POST['password']
-        val = users.objects.filter(username = uname)
-        if val:
-            data = users.objects.get(username = uname)
-            if data.password == password:
-                logs = log.objects.get(id = 1)
-                logs.username = uname
-                logs.active = True 
-                logs.save()
+        if request.method == 'POST':
+            uname = request.POST['uname']
+            password = request.POST['password']
+            val = users.objects.filter(username = uname)
+            if val:
+                data = users.objects.get(username = uname)
+                if data.password == password:
+                    logs = log.objects.get(id = 1)
+                    logs.username = uname
+                    logs.active = True 
+                    logs.save()
 
-                
-                load = loader.get_template('todo.html')
-                return HttpResponse(load.render())
+                    
+                    load = loader.get_template('todo.html')
+                    return HttpResponse(load.render({},request))
+                else:
+                    return redirect('/')
             else:
                 return redirect('/')
-        else:
-            return redirect('/')
+            
+        load = loader.get_template('todo.html')
+        return HttpResponse(load.render({},request))
 def signup(request):
     load = loader.get_template('signin.html')
     return HttpResponse(load.render({},request))
@@ -41,5 +45,10 @@ def createuser(request):
         return redirect('/')  
     else:
         return redirect('signup')
-
-
+def createtodo(request):
+    job = request.POST['job']
+    type = request.POST['type']
+    logs = log.objects.get(id = 1)
+    load = toDoLists(username = logs.username , job = job , status = False , job_type = type) 
+    load.save()
+    return redirect('login')

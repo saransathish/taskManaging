@@ -119,7 +119,7 @@
     <div id="myModal" class="modal-new">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form class="todoform" action="createtodo" method="post">
+            <form class="todoform" action="createtodo/" method="post">
                 {% csrf_token %}
                 <div class="input-group mb-3">
                     <input type="text" placeholder="Add a new Task .." class="todo-input form-control" id="textInput"
@@ -131,7 +131,7 @@
                             <option value="shopping">health</option>
                             
                         </select>
-                    <input class="todo-button" id="todo-button" type="submit" value="Submit">    
+                    <input class="todo-button" id="todo-button" type="submit" value="clear">    
                     <input id="todo-button" class="todo-button" type="submit" value="submit">
                     
                 </div>

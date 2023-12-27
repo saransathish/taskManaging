@@ -2,10 +2,13 @@ from django.shortcuts import render , redirect
 from django.template import loader
 from django.http import HttpResponse , HttpResponseRedirect
 from .models import *
-# Create your views here.
+from datetime import datetime
+
 def index(request):
     load = loader.get_template('index.html')
     return HttpResponse(load.render({},request))
+
+
 def login(request):
         if request.method == 'POST':
             uname = request.POST['uname']
@@ -18,22 +21,48 @@ def login(request):
                     logs.username = uname
                     logs.active = True 
                     logs.save()
-
-                    
+                    todo = toDoLists.objects.filter(username = uname , date = datetime.today().date())
+                    total = todo.count()
+                    remain = toDoLists.objects.filter(username = uname , date = datetime.today().date() , status = False).count()
+                    comp = total - remain
+                    context = {
+                        'todo' : todo,
+                        'total' : total,
+                        'remain' : remain ,
+                        'comp' : comp
+                    }
+                    print("total " , total , "remain" , remain ,'comp' , comp )
                     load = loader.get_template('todo.html')
-                    return HttpResponse(load.render({},request))
+                    return HttpResponse(load.render(context,request))
                 else:
                     return redirect('/')
             else:
                 return redirect('/')
-            
+        logs = log.objects.get(id = 1)
+        todo = toDoLists.objects.filter(username = logs.username , date = datetime.today().date())
+        total = todo.count()
+        remain = toDoLists.objects.filter(username = logs.username , date = datetime.today().date() , status = False).count()
+        comp = total - remain
+        context = {
+            'todo' : todo,
+            'total' : total,
+            'remain' : remain ,
+            'comp' : comp
+        }  
+        print("total " , total , "remain" , remain ,'comp' , comp )
         load = loader.get_template('todo.html')
-        return HttpResponse(load.render({},request))
+        return HttpResponse(load.render(context,request))
+
+
 def signup(request):
     load = loader.get_template('signin.html')
     return HttpResponse(load.render({},request))
+
+
 def back(request):
     return redirect('/')
+
+
 def createuser(request):
     username = request.POST['username']
     fullname = request.POST['fullname']
@@ -45,10 +74,18 @@ def createuser(request):
         return redirect('/')  
     else:
         return redirect('signup')
+    
+
 def createtodo(request):
     job = request.POST['job']
     type = request.POST['type']
     logs = log.objects.get(id = 1)
     load = toDoLists(username = logs.username , job = job , status = False , job_type = type) 
     load.save()
+    return redirect('login')
+
+def done(request , id):
+    val = toDoLists.objects.get(id = id)
+    val.status = True
+    val.save()
     return redirect('login')

@@ -3,6 +3,11 @@ from django.template import loader
 from django.http import HttpResponse , HttpResponseRedirect
 from .models import *
 from datetime import datetime
+from datetime import datetime, timedelta
+# from django_excel import make_response
+import pandas as pd
+
+
 
 def index(request):
     load = loader.get_template('index.html')
@@ -111,8 +116,12 @@ def past(request):
     total = todo.count()
     remain = toDoLists.objects.filter(username = logs.username , status = False).count()
     comp = total - remain
+    end_date = datetime.now().date() - timedelta(days=0)
+    start_date = end_date - timedelta(days=7)
+    todos = toDoLists.objects.filter(username = logs.username , date__range=(start_date, end_date))
+
     context = {
-        'todo' : todo,
+        'todo' : todos,
         'total' : total,
         'remain' : remain ,
         'comp' : comp ,
@@ -120,5 +129,17 @@ def past(request):
     } 
     load = loader.get_template('past.html')
     return HttpResponse(load.render(context , request))
+
 def goback(request):
     return redirect('login')
+
+def excel(request):
+    todo = toDoLists.objects.filter(username = "saran" )
+    data = list(todo.values())
+    df = pd.DataFrame(data)
+    df = df.drop(columns=['id','username'])
+    excel_file_path = 'file.xlsx'
+    df.to_excel(excel_file_path, index=False)
+    return HttpResponse(f'DataFrame has been saved to {excel_file_path}') 
+    
+

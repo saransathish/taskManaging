@@ -156,7 +156,15 @@ nav h1 {
           </div>
         </div>
       </section>
-      
+      <div class ="con">
+        <div class="outer-container">
+      <div class="vertical-box">
+        <div class="inner-box">
+          <a href="index.html" download="index.html"><button>Download</button></a>
+          <button id="downloadButton">Download</button>
+        </div>
+    </div>
+    </div></div>
 
       <div class ="con">
         <div class="outer-container">
@@ -199,4 +207,15 @@ nav h1 {
       
  
 </body>
+<script>
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            var link = document.createElement('a');
+            link.href = 'file.xlsx';
+            link.download = 'filename.zip';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+</script>
 </html>

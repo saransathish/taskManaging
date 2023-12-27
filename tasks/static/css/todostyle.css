@@ -1063,11 +1063,6 @@ body {
 /* scrollTop css codes */
 #scrollTop {
 
-
-
-
-
-
     display: none;
     position: fixed;
     bottom: 13%;
@@ -1090,46 +1085,6 @@ body {
 
 }
 
-.navbar {
-  width: 100%;
-  /* background-color: #555; */
-  overflow: auto;
-}
 
-.navbar a {
-  float: left;
-  padding: 12px;
-  color: white;
-  text-decoration: none;
-  font-size: 17px;
-}
 
-.navbar a img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-}
 
-.footer-desc {
-  margin-top: unset;
-  margin-bottom: unset;
-}
-
-.footer-creator-label h3 {
-  margin-top: unset;
-}
-
-.search-container {
-    margin-top: 20px;
-    text-align: center;
-}
-
-/* Style the search input field */
-.search-container input[type="text"] {
-    padding: 10px;
-    width: 100%;
-    max-width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}

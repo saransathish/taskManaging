@@ -106,5 +106,19 @@ def logout(request):
     return redirect('/')
 
 def past(request):
+    logs = log.objects.get(id = 1)
+    todo = toDoLists.objects.filter(username = logs.username )
+    total = todo.count()
+    remain = toDoLists.objects.filter(username = logs.username , status = False).count()
+    comp = total - remain
+    context = {
+        'todo' : todo,
+        'total' : total,
+        'remain' : remain ,
+        'comp' : comp ,
+        'name' : logs.username,
+    } 
     load = loader.get_template('past.html')
-    return HttpResponse(load.render())
+    return HttpResponse(load.render(context , request))
+def goback(request):
+    return redirect('login')

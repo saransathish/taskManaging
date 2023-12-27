@@ -29,13 +29,6 @@
 
     <link rel="stylesheet" href="{% static 'css/todostyle.css' %}" />
     <style>
-        .false{
-  border: 2px solid black;
-  max-width: 60%;
-  color: white;
-  size: 1000px;
-  background-color: white;
-}
 
 .con {
   font-family: Arial, sans-serif;
@@ -47,7 +40,7 @@
 }
 
 .outer-container {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(202, 23, 23, 0.1);
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -82,6 +75,13 @@
     height: 35px;
     width: 75px;
 }
+
+.butt1 {
+    background-color: #ff3333;
+    border-radius: 10px;
+    height: 35px;
+    width: 75px;
+}
 .inner1 {
     min-width: 80%;
     max-width: 80%;
@@ -93,10 +93,49 @@
 .inner2{
     align-items: center;
 }
+nav {
+    /* background-color: #333; */
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info span {
+    margin-right: 10px;
+}
+
+.logout-btn {
+    background-color: #ff3333;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
     </style>
 </head>
 
 <body>
+    <nav>
+        <h1></h1>
+        <div class="user-info">
+            <span>Hello {{name}}</span>
+            <a href="logout/"><button class="logout-btn">Logout</button></a>
+        </div>
+    </nav>
     <div id="custom-confirm" class="custom-confirm">
       <div class="confirm-content">
         <div class="optbox_header">
@@ -212,7 +251,7 @@
                 {% if x.status %}
                 <div class="inner-box">
                     <div class="inner1" style="text-decoration: line-through greenyellow 1px;"><p>{{x.job}}</p></div>
-                    <!-- <div class = 'inner2'><a href="done/{{x.id}}"><button class = "butt">Done</button></a></div> -->
+                    <div class = 'inner2'><a href="undo/{{x.id}}"><button class = "butt1">Undo</button></a></div>
                     
                 </div>
                 {% else %}
@@ -233,7 +272,7 @@
 
         </ul>
     </div>
-    <button class="delete-all" >Other Activities!!..</button>
+    <button class="delete-all" ><a href="past/" style="color: white; text-underline-position: none;">Other Activities!!..</a></button>
 
 
     <script src="{% static 'js/app.js' %}"></script>

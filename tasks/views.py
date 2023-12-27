@@ -29,7 +29,8 @@ def login(request):
                         'todo' : todo,
                         'total' : total,
                         'remain' : remain ,
-                        'comp' : comp
+                        'comp' : comp,
+                        'name' : uname
                     }
                     print("total " , total , "remain" , remain ,'comp' , comp )
                     load = loader.get_template('todo.html')
@@ -47,7 +48,8 @@ def login(request):
             'todo' : todo,
             'total' : total,
             'remain' : remain ,
-            'comp' : comp
+            'comp' : comp ,
+            'name' : logs.username,
         }  
         print("total " , total , "remain" , remain ,'comp' , comp )
         load = loader.get_template('todo.html')
@@ -89,3 +91,20 @@ def done(request , id):
     val.status = True
     val.save()
     return redirect('login')
+
+def undo(request , id):
+    val = toDoLists.objects.get(id = id)
+    val.status = False
+    val.save()
+    return redirect('login')
+
+def logout(request):
+    logs = log.objects.get(id = 1)
+    logs.active = False
+    logs.username = "nouser"
+    logs.save()
+    return redirect('/')
+
+def past(request):
+    load = loader.get_template('past.html')
+    return HttpResponse(load.render())

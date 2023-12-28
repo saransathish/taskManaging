@@ -133,14 +133,14 @@ def past(request):
 def goback(request):
     return redirect('login')
 
-def excel(request):
-    todo = toDoLists.objects.filter(username = "saran" )
-    data = list(todo.values())
-    df = pd.DataFrame(data)
-    df = df.drop(columns=['id','username'])
-    excel_file_path = 'file.xlsx'
-    df.to_excel(excel_file_path, index=False)
-    return HttpResponse(f'DataFrame has been saved to {excel_file_path}') 
+# def excel(request):
+#     todo = toDoLists.objects.filter(username = "saran" )
+#     data = list(todo.values())
+#     df = pd.DataFrame(data)
+#     df = df.drop(columns=['id','username'])
+#     excel_file_path = 'file.xlsx'
+#     df.to_excel(excel_file_path, index=False)
+#     return HttpResponse(f'DataFrame has been saved to {excel_file_path}') 
 
 def download_file(request):
     logs = log.objects.get(id = 1)
@@ -148,6 +148,8 @@ def download_file(request):
     data = list(todo.values())
     df = pd.DataFrame(data)
     df = df.drop(columns=['id','username'])
+    df['status']=df['status'].replace(True,"Completed")
+    df['status']=df['status'].replace(False,"Pending")
     excel_file_path = 'complete_todolist.xlsx'
     df.to_excel(excel_file_path, index=False)
     file_path = excel_file_path

@@ -6,7 +6,7 @@ from datetime import datetime
 from datetime import datetime, timedelta
 # from django_excel import make_response
 import pandas as pd
-
+import os
 
 
 def index(request):
@@ -141,5 +141,23 @@ def excel(request):
     excel_file_path = 'file.xlsx'
     df.to_excel(excel_file_path, index=False)
     return HttpResponse(f'DataFrame has been saved to {excel_file_path}') 
+
+def download_file(request):
+    logs = log.objects.get(id = 1)
+    todo = toDoLists.objects.filter(username = logs.username )
+    data = list(todo.values())
+    df = pd.DataFrame(data)
+    df = df.drop(columns=['id','username'])
+    excel_file_path = 'complete_todolist.xlsx'
+    df.to_excel(excel_file_path, index=False)
+    file_path = excel_file_path
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/octet-stream')
+            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
+            return response
+    else:
+        return HttpResponse("File not found", status=404)
+
     
 

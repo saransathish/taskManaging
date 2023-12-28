@@ -17,5 +17,6 @@ urlpatterns = [
     path('signup/signup/',views.createuser,name="createuser"),
 
     path('excel/',views.excel,name="excel"),
+    path('login/past/download/', views.download_file, name='download_file'),
 
 ]

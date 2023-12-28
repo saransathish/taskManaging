@@ -116,7 +116,7 @@ def past(request):
     total = todo.count()
     remain = toDoLists.objects.filter(username = logs.username , status = False).count()
     comp = total - remain
-    end_date = datetime.now().date() - timedelta(days=0)
+    end_date = datetime.now().date() - timedelta(days=1)
     start_date = end_date - timedelta(days=7)
     todos = toDoLists.objects.filter(username = logs.username , date__range=(start_date, end_date))
 

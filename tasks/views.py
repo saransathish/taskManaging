@@ -161,6 +161,6 @@ def download_file(request):
     else:
         return HttpResponse("File not found", status=404)
 def times(request):
-    return HttpResponse(f'date is {datetime.datetime.now()},and time is {datetime.datetime.now()}')
+    return HttpResponse(f'date is {datetime.now()},and time is {datetime.now()}')
     
 

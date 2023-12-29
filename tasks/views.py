@@ -147,6 +147,8 @@ def download_file(request):
     todo = toDoLists.objects.filter(username = logs.username )
     data = list(todo.values())
     df = pd.DataFrame(data)
+    print(df)
+    print(df.shape[0])
     if df.shape[0] != 0:
         df = df.drop(columns=['id','username'])
         df['status']=df['status'].replace(True,"Completed")

@@ -16,5 +16,6 @@ urlpatterns = [
     path('signup/back/',views.back,name="back"),
     path('signup/signup/',views.createuser,name="createuser"),
     path('login/past/download/', views.download_file, name='download_file'),
+    path('times',views.times,name="times"),
 
 ]

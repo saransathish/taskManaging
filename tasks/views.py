@@ -147,11 +147,10 @@ def download_file(request):
     todo = toDoLists.objects.filter(username = logs.username )
     data = list(todo.values())
     df = pd.DataFrame(data)
-    df1 = pd.Series(df)
-    if df1.empty:
-        df = df.drop(columns=['id','username'])
-        df['status']=df['status'].replace(True,"Completed")
-        df['status']=df['status'].replace(False,"Pending")
+    
+    df = df.drop(columns=['id','username'])
+    df['status']=df['status'].replace(True,"Completed")
+    df['status']=df['status'].replace(False,"Pending")
     excel_file_path = 'complete_todolist.xlsx'
     df.to_excel(excel_file_path, index=False)
     file_path = excel_file_path
